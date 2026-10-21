@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body { margin:0; background:#0b1220; font-family: 'Liberation Mono', 'SF Mono', monospace; }
+.term { margin: 24px; padding: 20px 24px; background: #0d1117; border: 1px solid #2d333b;
+        border-radius: 10px; color: #c9d1d9; font-size: 15px; line-height: 1.5; white-space: pre-wrap; }
+.bar { display:flex; gap:8px; margin-bottom:14px; }
+.dot { width:12px; height:12px; border-radius:50%; }
+.title { color:#8b949e; margin-left:8px; font-size: 13px; }
+.you { color: #58a6ff; font-weight: bold; }
+.warn { color: #d2a8ff; }
+.ok { color: #7ee787; }
+.money { color: #ffa657; }
+h1 { color:#e6edf3; font-family: 'Liberation Sans', -apple-system, sans-serif; margin: 20px 0 0 24px; font-size: 22px; }</style></head>
+<body>
+<h1>Ask-the-data chatbot — live session (real output)</h1>
+<div class="term"><div class="bar">
+<div class="dot" style="background:#ff5f57"></div><div class="dot" style="background:#febc2e"></div>
+<div class="dot" style="background:#28c840"></div><span class="title">terminal — 05-marketing-campaign</span></div>
+<span class="you">you&gt; deciles</span><br><div class="">[computed&nbsp;live&nbsp;from&nbsp;bank_cleaned.csv&nbsp;/&nbsp;deciles.csv&nbsp;—]</div>
+<div class="">Model&nbsp;deciles&nbsp;—&nbsp;ranked&nbsp;by&nbsp;predicted&nbsp;likelihood&nbsp;to&nbsp;subscribe:</div>
+<div class="money">&nbsp;&nbsp;D1&nbsp;—&nbsp;71%&nbsp;conversion&nbsp;·&nbsp;61%&nbsp;of&nbsp;all&nbsp;conversions</div>
+<div class="money">&nbsp;&nbsp;D2&nbsp;—&nbsp;33%&nbsp;conversion&nbsp;·&nbsp;28%&nbsp;of&nbsp;all&nbsp;conversions</div>
+<div class="money">&nbsp;&nbsp;D3&nbsp;—&nbsp;10%&nbsp;conversion&nbsp;·&nbsp;8%&nbsp;of&nbsp;all&nbsp;conversions</div>
+<div class="money">Top&nbsp;decile&nbsp;=&nbsp;4,522&nbsp;contacts&nbsp;(10%)&nbsp;carrying&nbsp;61%&nbsp;of&nbsp;all&nbsp;conversions&nbsp;—&nbsp;6.1x&nbsp;the&nbsp;11.7%&nbsp;baseline&nbsp;per&nbsp;call.</div>
+<div class="">&nbsp;</div>
+<div class="ok">Overall:&nbsp;45,211&nbsp;contacts&nbsp;·&nbsp;11.7%&nbsp;conversion&nbsp;(5,289)&nbsp;·&nbsp;campaign&nbsp;ROI&nbsp;5.6x&nbsp;(stated&nbsp;assumptions:&nbsp;$2.50/call,&nbsp;$120&nbsp;margin)&nbsp;·&nbsp;top&nbsp;decile&nbsp;=&nbsp;10%&nbsp;of&nbsp;contacts,&nbsp;61%&nbsp;of&nbsp;conversions.</div><br><span class="you">you&gt; roi</span><br><div class="">[computed&nbsp;live&nbsp;from&nbsp;bank_cleaned.csv&nbsp;/&nbsp;deciles.csv&nbsp;—]</div>
+<div class="money">Cost&nbsp;model&nbsp;(stated&nbsp;assumptions):&nbsp;$2.50&nbsp;per&nbsp;call,&nbsp;$120&nbsp;margin&nbsp;per&nbsp;subscription.</div>
+<div class="ok">45,211&nbsp;contacts&nbsp;×&nbsp;avg&nbsp;2.76&nbsp;calls&nbsp;=&nbsp;$113,028&nbsp;dial&nbsp;cost.</div>
+<div class="ok">5,289&nbsp;conversions&nbsp;×&nbsp;$120&nbsp;=&nbsp;$634,680&nbsp;margin.</div>
+<div class="ok">Campaign&nbsp;ROI&nbsp;=&nbsp;5.6x&nbsp;—&nbsp;before&nbsp;targeting.&nbsp;The&nbsp;decile&nbsp;plan&nbsp;converts&nbsp;'dials'&nbsp;to&nbsp;'chosen&nbsp;dials'.</div>
+<div class="">&nbsp;</div>
+<div class="ok">Overall:&nbsp;45,211&nbsp;contacts&nbsp;·&nbsp;11.7%&nbsp;conversion&nbsp;(5,289)&nbsp;·&nbsp;campaign&nbsp;ROI&nbsp;5.6x&nbsp;(stated&nbsp;assumptions:&nbsp;$2.50/call,&nbsp;$120&nbsp;margin)&nbsp;·&nbsp;top&nbsp;decile&nbsp;=&nbsp;10%&nbsp;of&nbsp;contacts,&nbsp;61%&nbsp;of&nbsp;conversions.</div><br><span class="you">you&gt; response by poutcome</span><br><div class="">[computed&nbsp;live&nbsp;from&nbsp;bank_cleaned.csv&nbsp;/&nbsp;deciles.csv&nbsp;—]</div>
+<div class="">Conversion&nbsp;rate&nbsp;by&nbsp;outcome&nbsp;of&nbsp;the&nbsp;previous&nbsp;campaign:</div>
+<div class="money">&nbsp;&nbsp;failure&nbsp;—&nbsp;12.6%&nbsp;(4,901&nbsp;contacts)</div>
+<div class="money">&nbsp;&nbsp;other&nbsp;—&nbsp;16.7%&nbsp;(1,840&nbsp;contacts)</div>
+<div class="money">&nbsp;&nbsp;success&nbsp;—&nbsp;64.7%&nbsp;(1,511&nbsp;contacts)</div>
+<div class="money">&nbsp;&nbsp;unknown&nbsp;—&nbsp;9.2%&nbsp;(36,959&nbsp;contacts)</div>
+<div class="">&nbsp;</div>
+<div class="ok">Overall:&nbsp;45,211&nbsp;contacts&nbsp;·&nbsp;11.7%&nbsp;conversion&nbsp;(5,289)&nbsp;·&nbsp;campaign&nbsp;ROI&nbsp;5.6x&nbsp;(stated&nbsp;assumptions:&nbsp;$2.50/call,&nbsp;$120&nbsp;margin)&nbsp;·&nbsp;top&nbsp;decile&nbsp;=&nbsp;10%&nbsp;of&nbsp;contacts,&nbsp;61%&nbsp;of&nbsp;conversions.</div></div></body></html>
