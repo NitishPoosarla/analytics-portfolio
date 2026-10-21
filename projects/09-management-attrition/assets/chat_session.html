@@ -1,0 +1,38 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body { margin:0; background:#0b1220; font-family: 'Liberation Mono', 'SF Mono', monospace; }
+.term { margin: 24px; padding: 20px 24px; background: #0d1117; border: 1px solid #2d333b;
+        border-radius: 10px; color: #c9d1d9; font-size: 15px; line-height: 1.5; white-space: pre-wrap; }
+.bar { display:flex; gap:8px; margin-bottom:14px; }
+.dot { width:12px; height:12px; border-radius:50%; }
+.title { color:#8b949e; margin-left:8px; font-size: 13px; }
+.you { color: #58a6ff; font-weight: bold; }
+.warn { color: #d2a8ff; }
+.ok { color: #7ee787; }
+.money { color: #ffa657; }
+h1 { color:#e6edf3; font-family: 'Liberation Sans', -apple-system, sans-serif; margin: 20px 0 0 24px; font-size: 22px; }</style></head>
+<body>
+<h1>Ask-the-data chatbot — live session (real output)</h1>
+<div class="term"><div class="bar">
+<div class="dot" style="background:#ff5f57"></div><div class="dot" style="background:#febc2e"></div>
+<div class="dot" style="background:#28c840"></div><span class="title">terminal — 09-management-attrition</span></div>
+<span class="you">you&gt; why people leave</span><br><div class="">[computed&nbsp;live&nbsp;from&nbsp;hr_clean.csv&nbsp;/&nbsp;employee_risk.csv&nbsp;—]</div>
+<div class="money">Three&nbsp;measured&nbsp;levers&nbsp;(each&nbsp;vs&nbsp;the&nbsp;16.1%&nbsp;baseline):</div>
+<div class="money">&nbsp;&nbsp;1.&nbsp;Overtime&nbsp;—&nbsp;leavers&nbsp;rate&nbsp;30.5%&nbsp;among&nbsp;OT&nbsp;vs&nbsp;10.4%&nbsp;without.</div>
+<div class="money">&nbsp;&nbsp;2.&nbsp;Satisfaction&nbsp;—&nbsp;22.8%&nbsp;when&nbsp;JobSatisfaction&nbsp;=&nbsp;1&nbsp;(floor)&nbsp;vs&nbsp;11.3%&nbsp;at&nbsp;the&nbsp;top.</div>
+<div class="money">&nbsp;&nbsp;3.&nbsp;Early&nbsp;tenure&nbsp;—&nbsp;29.8%&nbsp;within&nbsp;the&nbsp;first&nbsp;two&nbsp;years.</div>
+<div class="">Management&nbsp;plan:&nbsp;price&nbsp;overtime,&nbsp;target&nbsp;early-tenure&nbsp;1:1s,&nbsp;watch&nbsp;the&nbsp;satisfaction&nbsp;floor.</div>
+<div class="">&nbsp;</div>
+<div class="ok">Overall:&nbsp;1,470&nbsp;employees&nbsp;·&nbsp;16.1%&nbsp;attrition&nbsp;·&nbsp;overtime&nbsp;workers&nbsp;leave&nbsp;at&nbsp;30.5%&nbsp;vs&nbsp;10.4%&nbsp;·&nbsp;low-satisfaction&nbsp;22.8%&nbsp;vs&nbsp;11.3%&nbsp;·&nbsp;first-years&nbsp;leave&nbsp;at&nbsp;29.8%.</div><br><span class="you">you&gt; top 5 at-risk</span><br><div class="">[computed&nbsp;live&nbsp;from&nbsp;hr_clean.csv&nbsp;/&nbsp;employee_risk.csv&nbsp;—]</div>
+<div class="">Top&nbsp;5&nbsp;employees&nbsp;by&nbsp;predicted&nbsp;exit&nbsp;probability&nbsp;(from&nbsp;outputs/employee_risk.csv):</div>
+<div class="money">&nbsp;&nbsp;#167&nbsp;—&nbsp;p=0.98&nbsp;·&nbsp;Sales&nbsp;Representative&nbsp;·&nbsp;$1,675/mo&nbsp;·&nbsp;OT=Yes</div>
+<div class="money">&nbsp;&nbsp;#959&nbsp;—&nbsp;p=0.97&nbsp;·&nbsp;Sales&nbsp;Representative&nbsp;·&nbsp;$2,121/mo&nbsp;·&nbsp;OT=Yes</div>
+<div class="money">&nbsp;&nbsp;#1273&nbsp;—&nbsp;p=0.96&nbsp;·&nbsp;Sales&nbsp;Representative&nbsp;·&nbsp;$1,118/mo&nbsp;·&nbsp;OT=Yes</div>
+<div class="money">&nbsp;&nbsp;#614&nbsp;—&nbsp;p=0.95&nbsp;·&nbsp;Sales&nbsp;Representative&nbsp;·&nbsp;$1,878/mo&nbsp;·&nbsp;OT=Yes</div>
+<div class="money">&nbsp;&nbsp;#741&nbsp;—&nbsp;p=0.95&nbsp;·&nbsp;Research&nbsp;Scientist&nbsp;·&nbsp;$2,216/mo&nbsp;·&nbsp;OT=Yes</div>
+<div class="">The&nbsp;1:1&nbsp;list,&nbsp;not&nbsp;an&nbsp;org-building&nbsp;exercise:&nbsp;verify,&nbsp;then&nbsp;engage.</div>
+<div class="">&nbsp;</div>
+<div class="ok">Overall:&nbsp;1,470&nbsp;employees&nbsp;·&nbsp;16.1%&nbsp;attrition&nbsp;·&nbsp;overtime&nbsp;workers&nbsp;leave&nbsp;at&nbsp;30.5%&nbsp;vs&nbsp;10.4%&nbsp;·&nbsp;low-satisfaction&nbsp;22.8%&nbsp;vs&nbsp;11.3%&nbsp;·&nbsp;first-years&nbsp;leave&nbsp;at&nbsp;29.8%.</div><br><span class="you">you&gt; overtime</span><br><div class="">[computed&nbsp;live&nbsp;from&nbsp;hr_clean.csv&nbsp;/&nbsp;employee_risk.csv&nbsp;—]</div>
+<div class="money">Overtime&nbsp;=&nbsp;Yes:&nbsp;127/416&nbsp;left&nbsp;(30.5%).</div>
+<div class="money">Overtime&nbsp;=&nbsp;No:&nbsp;&nbsp;110/1,054&nbsp;left&nbsp;(10.4%).</div>
+<div class="">Overtime&nbsp;is&nbsp;a&nbsp;~3x&nbsp;attrition&nbsp;multiplier&nbsp;—&nbsp;and&nbsp;a&nbsp;schedulable&nbsp;one.</div>
+<div class="">&nbsp;</div>
+<div class="ok">Overall:&nbsp;1,470&nbsp;employees&nbsp;·&nbsp;16.1%&nbsp;attrition&nbsp;·&nbsp;overtime&nbsp;workers&nbsp;leave&nbsp;at&nbsp;30.5%&nbsp;vs&nbsp;10.4%&nbsp;·&nbsp;low-satisfaction&nbsp;22.8%&nbsp;vs&nbsp;11.3%&nbsp;·&nbsp;first-years&nbsp;leave&nbsp;at&nbsp;29.8%.</div></div></body></html>
