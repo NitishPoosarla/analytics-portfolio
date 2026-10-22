@@ -40,10 +40,22 @@ READMEs are its actual output, captured in `tools/`.
 | 08 | [jobs market](projects/08-technology-jobs) | what does the DS job market pay and why | US median $135k; remote +16%; senior 2.4x entry |
 | 09 | [people analytics](projects/09-management-attrition) | which levers predict attrition | overtime 30.5% vs 10.4%; first two years 29.8% |
 
+Each project also lives as its own repo, same code and same history, if you
+don't want the whole bundle:
+[churn-retention-analysis](https://github.com/NitishPoosarla/churn-retention-analysis) ·
+[nyc-311-response-times](https://github.com/NitishPoosarla/nyc-311-response-times) ·
+[retail-supply-chain](https://github.com/NitishPoosarla/retail-supply-chain) ·
+[equity-drawdown-analysis](https://github.com/NitishPoosarla/equity-drawdown-analysis) ·
+[campaign-response-model](https://github.com/NitishPoosarla/campaign-response-model) ·
+[delivery-cycle-times](https://github.com/NitishPoosarla/delivery-cycle-times) ·
+[review-intelligence](https://github.com/NitishPoosarla/review-intelligence) ·
+[tech-jobs-salaries](https://github.com/NitishPoosarla/tech-jobs-salaries) ·
+[employee-attrition](https://github.com/NitishPoosarla/employee-attrition)
+
 ## Running one
 
 ```bash
-cd projects/01-consulting-churn
+cd projects/01-consulting-churn   # in a standalone repo: skip the cd, you're already at the root
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python src/00_download_data.py    # script names vary slightly per project
 .venv/bin/python src/01_prepare_analysis.py
