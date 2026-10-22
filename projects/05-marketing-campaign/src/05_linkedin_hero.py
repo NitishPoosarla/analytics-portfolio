@@ -19,7 +19,7 @@ fig.patch.set_facecolor("#101828")
 ax.add_patch(plt.Rectangle((0, 5.3), 12, 1.45, color="#1d2939"))
 ax.text(0.5, 6.05, "TELEMARKETING — TARGET SMARTER, DIAL LESS", fontsize=21,
         fontweight="bold", color="white")
-ax.text(0.5, 5.6, "45,211 call records · bank marketing (UCI) · every number verified in Python",
+ax.text(0.5, 5.6, "45,211 call records from the UCI bank marketing set",
         fontsize=11.5, color="#94a3b8")
 
 cards = [
@@ -40,7 +40,7 @@ ax.text(0.5, 1.3, "The logistic model ranks every prospect by likelihood to subs
                   "Dial the top decile first — the same 10% of contacts carries 61% of\n"
                   "all conversions (6.1x the baseline hit-rate per call).",
         fontsize=13, color="#e4e7ec")
-ax.text(0.5, 0.45, "Project 5 of 9 · built end-to-end: data → model → decile plan → AI narration → dashboard",
+ax.text(0.5, 0.45, "$2.50/call and $120 margin are stated assumptions, not sourced facts",
         fontsize=10.5, color="#667085")
 
 fig.savefig(OUT / "linkedin_hero.png", dpi=100, bbox_inches="tight",

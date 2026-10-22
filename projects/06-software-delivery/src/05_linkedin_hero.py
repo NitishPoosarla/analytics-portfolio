@@ -19,7 +19,7 @@ fig.patch.set_facecolor("#101828")
 ax.add_patch(plt.Rectangle((0, 5.3), 12, 1.45, color="#1d2939"))
 ax.text(0.5, 6.05, "1,000 REAL ISSUES — WHAT ACTUALLY SLOWS DELIVERY?", fontsize=21,
         fontweight="bold", color="white")
-ax.text(0.5, 5.6, "pandas issue tracker sample · cycle time triage · every number verified in Python",
+ax.text(0.5, 5.6, "1,000 issues sampled from the pandas GitHub tracker",
         fontsize=11.5, color="#94a3b8")
 
 cards = [
@@ -39,7 +39,7 @@ for value, label, color, x in cards:
 ax.text(0.5, 1.3, "Labeled issues wait 9.7d to a decision vs 15.6d unlabeled — triage discipline\n"
                   "is a delivery-velocity lever you can measure, not a process religion.",
         fontsize=13, color="#e4e7ec")
-ax.text(0.5, 0.45, "Project 6 of 9 · built end-to-end: data → delivery analytics → AI narration → dashboard",
+ax.text(0.5, 0.45, "labeled vs unlabeled comparison uses the same clock for both groups",
         fontsize=10.5, color="#667085")
 
 fig.savefig(OUT / "linkedin_hero.png", dpi=100, bbox_inches="tight",

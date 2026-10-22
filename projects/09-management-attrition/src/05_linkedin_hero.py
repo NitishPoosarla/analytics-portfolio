@@ -19,7 +19,7 @@ fig.patch.set_facecolor("#101828")
 ax.add_patch(plt.Rectangle((0, 5.3), 12, 1.45, color="#1d2939"))
 ax.text(0.5, 6.05, "WHY DO PEOPLE LEAVE? THREE MEASURED LEVERS.", fontsize=21,
         fontweight="bold", color="white")
-ax.text(0.5, 5.6, "1,470 employees · IBM HR dataset (public) · every number verified in Python",
+ax.text(0.5, 5.6, "1,470 employees, IBM HR Analytics (public)",
         fontsize=11.5, color="#94a3b8")
 
 cards = [
@@ -39,7 +39,7 @@ for value, label, color, x in cards:
 ax.text(0.5, 1.3, "Overtime, low satisfaction, and the early-tenure cliff — modeled per employee\n"
                   "into a ranked watch-list, so 1:1s start with the top rows, not the org chart.",
         fontsize=13, color="#e4e7ec")
-ax.text(0.5, 0.45, "Project 9 of 9 · built end-to-end: data → model → ranked watch-list → AI narration → dashboard",
+ax.text(0.5, 0.45, "the watch-list ranks people by model score - manager verifies before acting",
         fontsize=10.5, color="#667085")
 
 fig.savefig(OUT / "linkedin_hero.png", dpi=100, bbox_inches="tight",

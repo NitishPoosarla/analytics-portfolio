@@ -1,0 +1,35 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body { margin:0; background:#0b1220; font-family: 'Liberation Mono', 'SF Mono', monospace; }
+.term { margin: 24px; padding: 20px 24px; background: #0d1117; border: 1px solid #2d333b;
+        border-radius: 10px; color: #c9d1d9; font-size: 15px; line-height: 1.5; white-space: pre-wrap; }
+.bar { display:flex; gap:8px; margin-bottom:14px; }
+.dot { width:12px; height:12px; border-radius:50%; }
+.title { color:#8b949e; margin-left:8px; font-size: 13px; }
+.you { color: #58a6ff; font-weight: bold; }
+.warn { color: #d2a8ff; }
+.ok { color: #7ee787; }
+.money { color: #ffa657; }
+h1 { color:#e6edf3; font-family: 'Liberation Sans', -apple-system, sans-serif; margin: 20px 0 0 24px; font-size: 22px; }</style></head>
+<body>
+<h1>Ask-the-data chatbot — live session (real output)</h1>
+<div class="term"><div class="bar">
+<div class="dot" style="background:#ff5f57"></div><div class="dot" style="background:#febc2e"></div>
+<div class="dot" style="background:#28c840"></div><span class="title">terminal — 01-consulting-churn</span></div>
+<span class="you">you&gt; churn by contract</span><br><div class="">(offline&nbsp;engine&nbsp;—&nbsp;every&nbsp;number&nbsp;below&nbsp;recomputed&nbsp;from&nbsp;the&nbsp;csv)</div>
+<div class="">&nbsp;</div>
+<div class="money">Churn&nbsp;by&nbsp;contract&nbsp;—&nbsp;Month-to-month:&nbsp;42.7%&nbsp;of&nbsp;3,875;&nbsp;One&nbsp;year:&nbsp;11.3%&nbsp;of&nbsp;1,473;&nbsp;Two&nbsp;year:&nbsp;2.8%&nbsp;of&nbsp;1,695</div>
+<div class="">&nbsp;</div>
+<div class="ok">Overall:&nbsp;1,869&nbsp;of&nbsp;7,043&nbsp;churn&nbsp;(26.5%);&nbsp;$139,131&nbsp;MRR&nbsp;at&nbsp;risk.</div><br><span class="you">you&gt; top 5 customers by churn risk</span><br><div class="">(offline&nbsp;engine&nbsp;—&nbsp;every&nbsp;number&nbsp;below&nbsp;recomputed&nbsp;from&nbsp;the&nbsp;csv)</div>
+<div class="">&nbsp;</div>
+<div class="ok">Top-5&nbsp;by&nbsp;expected&nbsp;value&nbsp;(p_churn&nbsp;×&nbsp;monthly&nbsp;charge):</div>
+<div class="money">&nbsp;&nbsp;1400-MMYXY&nbsp;—&nbsp;p=0.81,&nbsp;$85/mo&nbsp;at&nbsp;risk</div>
+<div class="money">&nbsp;&nbsp;5419-JPRRN&nbsp;—&nbsp;p=0.83,&nbsp;$84/mo&nbsp;at&nbsp;risk</div>
+<div class="money">&nbsp;&nbsp;7216-EWTRS&nbsp;—&nbsp;p=0.83,&nbsp;$84/mo&nbsp;at&nbsp;risk</div>
+<div class="money">&nbsp;&nbsp;6496-SLWHQ&nbsp;—&nbsp;p=0.80,&nbsp;$84/mo&nbsp;at&nbsp;risk</div>
+<div class="money">&nbsp;&nbsp;6023-YEBUP&nbsp;—&nbsp;p=0.83,&nbsp;$83/mo&nbsp;at&nbsp;risk</div>
+<div class="">&nbsp;</div>
+<div class="ok">Overall:&nbsp;1,869&nbsp;of&nbsp;7,043&nbsp;churn&nbsp;(26.5%);&nbsp;$139,131&nbsp;MRR&nbsp;at&nbsp;risk.</div><br><span class="you">you&gt; what is the retention roi</span><br><div class="">(offline&nbsp;engine&nbsp;—&nbsp;every&nbsp;number&nbsp;below&nbsp;recomputed&nbsp;from&nbsp;the&nbsp;csv)</div>
+<div class="">&nbsp;</div>
+<div class="ok">ROI&nbsp;scenario&nbsp;(assumptions:&nbsp;outreach&nbsp;cost&nbsp;per&nbsp;contacted&nbsp;customer&nbsp;=&nbsp;$50,&nbsp;save&nbsp;rate&nbsp;=&nbsp;10%&nbsp;of&nbsp;contacted&nbsp;customers,&nbsp;program&nbsp;budget&nbsp;=&nbsp;$10,000&nbsp;-&gt;&nbsp;200&nbsp;contacts):</div>
+<div class="ok">&nbsp;&nbsp;$10,000&nbsp;cost&nbsp;→&nbsp;$17,721&nbsp;retained&nbsp;12-mo&nbsp;→&nbsp;1.8x&nbsp;ROI</div>
+<div class="">&nbsp;</div>
+<div class="ok">Overall:&nbsp;1,869&nbsp;of&nbsp;7,043&nbsp;churn&nbsp;(26.5%);&nbsp;$139,131&nbsp;MRR&nbsp;at&nbsp;risk.</div></div></body></html>

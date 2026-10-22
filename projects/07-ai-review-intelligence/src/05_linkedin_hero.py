@@ -21,7 +21,7 @@ fig.patch.set_facecolor("#101828")
 ax.add_patch(plt.Rectangle((0, 5.3), 12, 1.45, color="#1d2939"))
 ax.text(0.5, 6.05, "DOES THE LLM BEAT THE $0 BASELINE? MEASURED, NOT VIBED.", fontsize=21,
         fontweight="bold", color="white")
-ax.text(0.5, 5.6, "3,000 labelled reviews (Amazon / IMDB / Yelp) · both classifiers on identical ground truth",
+ax.text(0.5, 5.6, "3,000 labeled reviews: amazon_cells, imdb, yelp (public UCI corpora)",
         fontsize=11.5, color="#94a3b8")
 
 cards = [
@@ -42,7 +42,7 @@ ax.text(0.5, 1.3, "The honest finding: at 150 sampled keys the lexicon fallback 
                   "baseline — so the pipeline ships the BASELINE to production and keeps the AI lane\n"
                   "behind an eval gate. Add an API key and 02_llm_classifier.py re-runs the receipt.",
         fontsize=12.5, color="#e4e7ec")
-ax.text(0.5, 0.45, "Project 7 of 9 · built end-to-end: data → baseline → LLM lane → eval receipts → dashboard",
+ax.text(0.5, 0.45, "both classifiers were scored against the same held-out labels",
         fontsize=10.5, color="#667085")
 
 fig.savefig(OUT / "linkedin_hero.png", dpi=100, bbox_inches="tight",

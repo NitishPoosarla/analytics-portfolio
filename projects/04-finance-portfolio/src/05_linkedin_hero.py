@@ -19,7 +19,7 @@ fig.patch.set_facecolor("#101828")
 ax.add_patch(plt.Rectangle((0, 5.3), 12, 1.45, color="#1d2939"))
 ax.text(0.5, 6.05, "S&P 500 — THE RETURN IS REAL. SO IS THE WAIT.", fontsize=21,
         fontweight="bold", color="white")
-ax.text(0.5, 5.6, "150 years of Shiller data (1871→) · every number verified in Python",
+ax.text(0.5, 5.6, "150 years of Shiller data, 1871 onward, downloaded and recomputed locally",
         fontsize=11.5, color="#94a3b8")
 
 cards = [
@@ -39,7 +39,7 @@ for value, label, color, x in cards:
 ax.text(0.5, 1.3, "A 9% nominal annual return still hid droughts measured in years:\n"
                   "worst rolling 20-year real outcome was negative. Plan cash flows, not feelings.",
         fontsize=13, color="#e4e7ec")
-ax.text(0.5, 0.45, "Project 4 of 9 · built end-to-end: data → drawdown analysis → AI narration → dashboard",
+ax.text(0.5, 0.45, "the point: a plan that survives being underwater for years, not a return forecast",
         fontsize=10.5, color="#667085")
 
 fig.savefig(OUT / "linkedin_hero.png", dpi=100, bbox_inches="tight",

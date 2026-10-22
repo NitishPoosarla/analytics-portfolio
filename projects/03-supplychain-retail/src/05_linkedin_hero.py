@@ -20,7 +20,7 @@ fig.patch.set_facecolor("#101828")
 ax.add_patch(plt.Rectangle((0, 5.3), 12, 1.45, color="#1d2939"))
 ax.text(0.5, 6.05, "ONLINE RETAIL — WHERE DOES SUPPLY CHAIN RISK CONCENTRATE?",
         fontsize=21, fontweight="bold", color="white")
-ax.text(0.5, 5.6, "541,910 transactions · 19,960 orders · real UK retailer (UCI) · every number verified in Python",
+ax.text(0.5, 5.6, "541,910 rows, 13 months, one UK online retailer (UCI Online Retail II)",
         fontsize=11.5, color="#94a3b8")
 
 cards = [
@@ -40,7 +40,7 @@ for value, label, color, x in cards:
 ax.text(0.5, 1.3, "Dual-sourcing the top-20 SKUs costs +6% landed cost (stated assumption) —\n"
                   "priced against a single-supplier outage. The hedge has a number now.",
         fontsize=13, color="#e4e7ec")
-ax.text(0.5, 0.45, "Project 3 of 9 · built end-to-end: data → risk scenarios → AI narration → dashboard",
+ax.text(0.5, 0.45, "both hedge scenarios recompute from the data - outage cost is priced, not guessed",
         fontsize=10.5, color="#667085")
 
 fig.savefig(OUT / "linkedin_hero.png", dpi=100, bbox_inches="tight",

@@ -20,7 +20,7 @@ fig.patch.set_facecolor("#101828")
 ax.add_patch(plt.Rectangle((0, 5.3), 12, 1.45, color="#1d2939"))
 ax.text(0.5, 6.05, "TELCO CHURN — WHO DO WE PAY TO KEEP?", fontsize=21,
         fontweight="bold", color="white")
-ax.text(0.5, 5.6, "7,043 customers · real public dataset · every number verified in Python",
+ax.text(0.5, 5.6, "7,043 customers · IBM Telco churn (public) · numbers recomputed from the csv",
         fontsize=11.5, color="#94a3b8")
 
 cards = [
@@ -39,7 +39,7 @@ for value, label, color, x in cards:
 
 ax.text(0.5, 1.3, "Model AUC 0.84 ranks every customer by dollars at risk →\n"
                   "the save-list, not a chart.", fontsize=13, color="#e4e7ec")
-ax.text(0.5, 0.45, "Project 1 of 9 · built end-to-end: data → model → AI narration → dashboard",
+ax.text(0.5, 0.45, "model ranks every customer by dollars at risk; outreach assumptions written down",
         fontsize=10.5, color="#667085")
 
 fig.savefig(OUT / "linkedin_hero.png", dpi=100, bbox_inches="tight",

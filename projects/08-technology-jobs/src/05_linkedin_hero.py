@@ -39,7 +39,7 @@ for value, label, color, x in cards:
 ax.text(0.5, 1.3, "Same title, different market: geo-adjusted medians, remote premiums and\n"
                   "role-level spreads from public filings — not vibes. Job-lever, not glass-ceiling.",
         fontsize=13, color="#e4e7ec")
-ax.text(0.5, 0.45, "Project 8 of 9 · built end-to-end: data → market read → AI narration → dashboard",
+ax.text(0.5, 0.45, "medians, not means; small-market sample sizes are caveats, not decorations",
         fontsize=10.5, color="#667085")
 
 fig.savefig(OUT / "linkedin_hero.png", dpi=100, bbox_inches="tight",

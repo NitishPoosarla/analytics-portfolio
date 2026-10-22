@@ -20,7 +20,7 @@ fig.patch.set_facecolor("#101828")
 ax.add_patch(plt.Rectangle((0, 5.3), 12, 1.45, color="#1d2939"))
 ax.text(0.5, 6.05, "NYC 311 — WHERE DOES SERVICE DELIVERY LOSE TIME?", fontsize=21,
         fontweight="bold", color="white")
-ax.text(0.5, 5.6, "150,000-case quarter · public Socrata data · every number verified in Python",
+ax.text(0.5, 5.6, "150,000 cases, one quarter of NYC 311 (public Socrata data)",
         fontsize=11.5, color="#94a3b8")
 
 cards = [
@@ -40,7 +40,7 @@ for value, label, color, x in cards:
 ax.text(0.5, 1.3, "Re-deploy 12% of intake capacity to the 5 slowest heavy-volume case\n"
                   "types → $527k of staff capacity per quarter (assumptions on file).",
         fontsize=13, color="#e4e7ec")
-ax.text(0.5, 0.45, "Project 2 of 9 · built end-to-end: data → scenarios → AI narration → dashboard",
+ax.text(0.5, 0.45, "assumptions: $45/staff-hr and 1.6 labor-hrs per case, both on file",
         fontsize=10.5, color="#667085")
 
 fig.savefig(OUT / "linkedin_hero.png", dpi=100, bbox_inches="tight",
