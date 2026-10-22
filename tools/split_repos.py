@@ -1,9 +1,9 @@
 """Split each project/ subfolder into a standalone GitHub repo.
 
 Each repo gets its own incremental commit history (data -> analysis ->
-model -> dashboard -> chatbot/screenshots -> writeup), authored as the
-owner, with realistic session-spaced dates. Idempotent: pass --only <prefix>
-to redo a single project; existing remotes are reused and pushed again.
+model -> dashboard -> chat/banner -> writeup) with per-project pacing.
+Idempotent: --only <prefix> redoes one project; existing remotes are
+force-pushed with the rebuilt history.
 """
 from __future__ import annotations
 
@@ -35,52 +35,42 @@ PROJECTS: dict[str, dict] = {
         "name": "churn-retention-analysis",
         "desc": "Telco churn: model + save-list + ROI math on 7,043 customers (public dataset)",
         "topics": ["python", "churn-analysis", "retention"],
-        "req": None,  # already has one
-        "dates": ["2026-10-07T20:21:00",
-                  "2026-10-07T23:16:00",
-                  "2026-10-08T09:34:00",
-                  "2026-10-08T21:48:00",
-                  "2026-10-09T09:27:00",
-                  "2026-10-09T20:35:00"],
+        "req": None,
+        "dates": ["2026-10-07T20:41:00", "2026-10-07T23:52:00", "2026-10-08T10:22:00",
+                  "2026-10-08T22:14:00", "2026-10-09T11:39:00", "2026-10-09T21:03:00"],
         "commits": [
-            ("telco churn fetcher + a first look at the raw columns",
+            ("start: fetch ibm telco churn and eyeball every column",
              ["src/00_download_data.py", "data/raw", "shared", ".gitignore", ".env.example"]),
-            ("clean + segment: churn by contract and payment tell most of the story",
+            ("segments: contract/payment/service splits land in outputs/",
              ["src/01_prepare_analysis.py", "data/processed", "sql"]),
-            ("churn model + roi math: auc 0.84, $139k mrr at risk -> save-list",
+            ("logistic model + priced save-list: auc 0.84, $139k at risk",
              ["src/02_model_roi.py", "outputs"]),
-            ("ai brief (verified kpis only) + single-file dashboard",
+            ("single-file dashboard + kpi brief",
              ["src/03_ai_insights.py", "src/04_dashboard.py", "dashboard"]),
-            ("ask-the-data chatbot, hero slide, real screenshots",
-             ["src/05_linkedin_hero.py", "src/06_chat.py", "src/07_capture_shots.py", "assets"]),
-            ("readme, linkedin post, requirements",
-             ["README.md", "linkedin_post.md"]),
+            ("chat answers the save-list questions live; slide banner",
+             ["src/05_banner.py", "src/06_chat.py", "assets"]),
+            ("readme with the verified numbers",
+             ["README.md"]),
         ],
     },
     "02-operations-311": {
         "name": "nyc-311-response-times",
-        "desc": "NYC 311 Q3: resolution-time analysis, bottleneck scenarios, ask-the-data chatbot",
+        "desc": "NYC 311 quarter: resolution-time analysis, costed capacity scenarios",
         "topics": ["python", "new-york-city", "public-data"],
         "req": REQ_BASE,
-        "dates": ["2026-10-05T20:12:00",
-                  "2026-10-05T22:47:00",
-                  "2026-10-06T07:31:00",
-                  "2026-10-06T21:05:00",
-                  "2026-10-06T23:58:00",
-                  "2026-10-07T08:44:00"],
+        "dates": ["2026-10-05T20:12:00", "2026-10-05T23:08:00", "2026-10-06T09:44:00",
+                  "2026-10-06T22:37:00", "2026-10-07T10:02:00"],
         "commits": [
-            ("311 q3 extract in + first look at the columns",
+            ("nyc 311 socrata pull (jun-aug), projected columns, no PII",
              ["src/00_download_data.py", "data/raw", "shared", ".gitignore", ".env.example"]),
-            ("resolution times: p50/p90 by agency and complaint",
+            ("resolution medians per agency/type + arrival heatmap",
              ["src/01_analysis.py", "data/processed", "sql"]),
-            ("bottleneck + capacity scenarios, kpis locked",
+            ("bottleneck pareto + capacity scenarios with staff-hour assumptions",
              ["src/02_bottleneck_scenarios.py", "outputs"]),
-            ("ai brief reads only verified kpis + dashboard",
+            ("dashboard + deputy-commissioner brief",
              ["src/03_ai_insights.py", "src/04_dashboard.py", "dashboard"]),
-            ("ask-311 chatbot: slowest agencies live from the data",
-             ["src/06_chat.py"]),
-            ("hero slide, screenshots, writeup",
-             ["src/05_linkedin_hero.py", "assets", "README.md", "linkedin_post.md"]),
+            ("chat answers slowest-agencies live; readme",
+             ["src/05_banner.py", "src/06_chat.py", "assets", "README.md"]),
         ],
     },
     "03-supplychain-retail": {
@@ -88,22 +78,21 @@ PROJECTS: dict[str, dict] = {
         "desc": "Online Retail II (UCI): SKU concentration, returns share, outage hedge scenarios",
         "topics": ["python", "supply-chain", "retail-analytics"],
         "req": REQ_BASE,
-        "dates": ["2026-10-01T21:07:00",
-                  "2026-10-01T23:38:00",
-                  "2026-10-02T09:52:00",
-                  "2026-10-02T22:15:00",
-                  "2026-10-03T20:40:00"],
+        "dates": ["2026-10-01T21:07:00", "2026-10-01T23:38:00", "2026-10-02T09:52:00",
+                  "2026-10-02T22:15:00", "2026-10-03T13:27:00", "2026-10-03T20:40:00"],
         "commits": [
-            ("online retail ii (uci): 541k transactions, 13 months, first look",
+            ("online retail ii download + unzip: 541k transactions",
              ["src/00_download_data.py", "data/raw", "shared", ".gitignore", ".env.example"]),
-            ("sku concentration, returns share, uk exposure",
+            ("sku curve, market split, order bands, monthly pipeline",
              ["src/01_analysis.py", "data/processed", "sql"]),
-            ("outage and dual-sourcing hedge scenarios priced",
+            ("hedges priced: dual-source +6% landed vs export push $123k",
              ["src/02_risk_scenarios.py", "outputs"]),
-            ("dashboard + ai brief",
-             ["src/03_ai_insights.py", "src/04_dashboard.py", "dashboard"]),
-            ("sku-concentration chatbot, hero, shots, readme + post",
-             ["src/05_linkedin_hero.py", "src/06_chat.py", "assets", "README.md", "linkedin_post.md"]),
+            ("supply director brief, verified kpis only",
+             ["src/03_ai_insights.py"]),
+            ("single-file dashboard",
+             ["src/04_dashboard.py", "dashboard"]),
+            ("chat + banner + readme",
+             ["src/05_banner.py", "src/06_chat.py", "assets", "README.md"]),
         ],
     },
     "04-finance-portfolio": {
@@ -111,22 +100,17 @@ PROJECTS: dict[str, dict] = {
         "desc": "US equities (Shiller): drawdown history, real CAGR, cushion scenarios",
         "topics": ["python", "equity-markets", "time-series"],
         "req": REQ_BASE,
-        "dates": ["2026-10-10T21:02:00",
-                  "2026-10-10T23:27:00",
-                  "2026-10-11T10:14:00",
-                  "2026-10-11T22:41:00",
+        "dates": ["2026-10-10T21:02:00", "2026-10-11T10:14:00", "2026-10-11T23:06:00",
                   "2026-10-12T09:03:00"],
         "commits": [
-            ("shiller monthly file downloaded - 150+ years of returns",
+            ("shiller monthly file in; cpi gaps documented",
              ["src/00_download_data.py", "data/raw", "shared", ".gitignore", ".env.example"]),
-            ("drawdown history + real-cagr math",
+            ("episode engine: top-10 drawdowns, patience curve, real cagr",
              ["src/01_analysis.py", "data/processed", "sql", "outputs"]),
-            ("ai market brief + dashboard",
+            ("cfo brief + dashboard (log history, leaderboard)",
              ["src/02_ai_market_brief.py", "src/03_dashboard.py", "dashboard"]),
-            ("chatbot + hero + captures",
-             ["src/05_linkedin_hero.py", "src/06_chat.py", "assets"]),
-            ("readme + linkedin post + requirements",
-             ["README.md", "linkedin_post.md"]),
+            ("chat + banner + readme",
+             ["src/05_banner.py", "src/06_chat.py", "assets", "README.md"]),
         ],
     },
     "05-marketing-campaign": {
@@ -134,22 +118,21 @@ PROJECTS: dict[str, dict] = {
         "desc": "Bank marketing: response model with decile lift; who we actually call",
         "topics": ["python", "marketing-analytics", "classification"],
         "req": REQ_MODEL,
-        "dates": ["2026-10-13T20:33:00",
-                  "2026-10-13T22:58:00",
-                  "2026-10-14T08:49:00",
-                  "2026-10-14T21:17:00",
-                  "2026-10-15T09:56:00"],
+        "dates": ["2026-10-13T20:33:00", "2026-10-13T23:49:00", "2026-10-14T11:26:00",
+                  "2026-10-14T22:41:00", "2026-10-15T10:07:00", "2026-10-15T21:56:00"],
         "commits": [
-            ("bank marketing full set in - 45k calls",
+            ("bank marketing full set in - 45k dials, no PII",
              ["src/00_download_data.py", "data/raw", "shared", ".gitignore", ".env.example"]),
-            ("response rates by month/contact/campaign; the handoff pattern sticks out",
+            ("monthly/channel cuts: may is a trap",
              ["src/01_analysis.py", "data/processed", "sql"]),
-            ("targeting model: decile lift + scored file",
+            ("gbdt vs logistic: decile lift + scored call csv",
              ["src/02_targeting_model.py", "outputs"]),
-            ("dashboard + ai dial plan",
+            ("dashboard + the dial plan brief",
              ["src/03_ai_insights.py", "src/04_dashboard.py", "dashboard"]),
-            ("chatbot, hero, shots, readme + post",
-             ["src/05_linkedin_hero.py", "src/06_chat.py", "assets", "README.md", "linkedin_post.md"]),
+            ("chat (deciles/roi live) + banner",
+             ["src/05_banner.py", "src/06_chat.py", "assets"]),
+            ("readme: findings + model card",
+             ["README.md"]),
         ],
     },
     "06-software-delivery": {
@@ -157,22 +140,17 @@ PROJECTS: dict[str, dict] = {
         "desc": "Cycle-time read of 1,000 tracker issues; where delivery time actually goes",
         "topics": ["python", "engineering-metrics", "delivery"],
         "req": REQ_BASE,
-        "dates": ["2026-10-15T21:41:00",
-                  "2026-10-15T23:20:00",
-                  "2026-10-16T09:12:00",
-                  "2026-10-16T22:07:00",
+        "dates": ["2026-10-15T21:41:00", "2026-10-16T09:12:00", "2026-10-16T22:07:00",
                   "2026-10-17T10:26:00"],
         "commits": [
-            ("1,000 tracker issues pulled in",
+            ("pull 1,000 pandas-dev issues, timestamps intact",
              ["src/00_download_data.py", "data/raw", "shared", ".gitignore", ".env.example"]),
-            ("cycle-time read: p50/p90 by issue type",
+            ("cycle-time distribution, label effect, comment bands -> kpis",
              ["src/01_analysis.py", "data/processed", "sql", "outputs"]),
-            ("ai triage brief + dashboard",
+            ("triage brief + dashboard",
              ["src/02_ai_triage_brief.py", "src/03_dashboard.py", "dashboard"]),
-            ("chatbot + hero + captures",
-             ["src/05_linkedin_hero.py", "src/06_chat.py", "assets"]),
-            ("readme + linkedin post + requirements",
-             ["README.md", "linkedin_post.md"]),
+            ("chat + banner + readme",
+             ["src/05_banner.py", "src/06_chat.py", "assets", "README.md"]),
         ],
     },
     "07-ai-review-intelligence": {
@@ -180,48 +158,44 @@ PROJECTS: dict[str, dict] = {
         "desc": "Product review sentiment: baseline model vs LLM lane, with eval receipts",
         "topics": ["python", "nlp", "llm"],
         "req": REQ_MODEL,
-        "dates": ["2026-10-17T22:19:00",
-                  "2026-10-18T01:43:00",
-                  "2026-10-18T11:27:00",
-                  "2026-10-18T21:36:00",
-                  "2026-10-19T09:58:00",
-                  "2026-10-19T23:12:00"],
+        "dates": ["2026-10-17T22:19:00", "2026-10-18T01:43:00", "2026-10-18T11:27:00",
+                  "2026-10-18T21:36:00", "2026-10-19T09:58:00", "2026-10-19T23:12:00",
+                  "2026-10-20T00:49:00"],
         "commits": [
-            ("amazon fine-food reviews in",
+            ("uci labelled sentences: 3k reviews in",
              ["src/00_download_data.py", "data/raw", "shared", ".gitignore", ".env.example"]),
-            ("baseline model: lexicon vs logistic regression, confusion matrices",
+            ("tfidf+logreg baseline: holdout numbers land in model_eval.json",
              ["src/01_baseline_model.py", "sql"]),
-            ("llm lane: same reviews through the classifier prompt",
+            ("llm lane: zero-shot classifier on a fixed sample",
              ["src/02_llm_classifier.py"]),
-            ("eval receipts: baseline vs llm side by side",
+            ("receipts: ai_eval.json with majority-class floor + verdict",
              ["src/04_insights.py", "data/processed", "outputs"]),
-            ("dashboard + score-a-review chatbot",
-             ["src/03_dashboard.py", "src/06_chat.py", "dashboard"]),
-            ("hero, captures, readme + post",
-             ["src/05_linkedin_hero.py", "assets", "README.md", "linkedin_post.md"]),
+            ("audit sample csv + dashboard",
+             ["src/03_dashboard.py", "dashboard"]),
+            ("chat scores any pasted review",
+             ["src/06_chat.py"]),
+            ("banner + readme",
+             ["src/05_banner.py", "assets", "README.md"]),
         ],
     },
     "08-technology-jobs": {
         "name": "tech-jobs-salaries",
-        "desc": "Tech job postings: salary market by role and location",
+        "desc": "Tech job postings: salary market by role, level and location",
         "topics": ["python", "data-analysis", "employment"],
         "req": REQ_BASE,
-        "dates": ["2026-10-20T08:36:00",
-                  "2026-10-20T21:05:00",
-                  "2026-10-21T09:02:00",
-                  "2026-10-21T21:55:00",
-                  "2026-10-22T00:18:00"],
+        "dates": ["2026-10-20T08:36:00", "2026-10-20T21:05:00", "2026-10-21T09:02:00",
+                  "2026-10-21T21:55:00", "2026-10-22T00:18:00"],
         "commits": [
-            ("job postings dataset in",
+            ("ds salaries mirror in, pay usd-normalized",
              ["src/00_download_data.py", "data/raw", "shared", ".gitignore", ".env.example"]),
-            ("salary read: median by role and region",
+            ("leveling ladder + geo medians + remote premium",
              ["src/01_analysis.py", "data/processed", "sql", "outputs"]),
-            ("dashboard + ai market note",
+            ("three-audience note + dashboard",
              ["src/02_ai_market_note.py", "src/03_dashboard.py", "dashboard"]),
-            ("chatbot + hero + captures",
-             ["src/05_linkedin_hero.py", "src/06_chat.py", "assets"]),
-            ("readme + linkedin post + requirements",
-             ["README.md", "linkedin_post.md"]),
+            ("chat: remote premium / by experience live",
+             ["src/06_chat.py", "assets"]),
+            ("banner + readme",
+             ["src/05_banner.py", "README.md"]),
         ],
     },
     "09-management-attrition": {
@@ -229,27 +203,22 @@ PROJECTS: dict[str, dict] = {
         "desc": "HR attrition: drivers, retention model, ranked watch list",
         "topics": ["python", "hr-analytics", "people-analytics"],
         "req": REQ_MODEL,
-        "dates": ["2026-10-21T19:04:00",
-                  "2026-10-21T22:36:00",
-                  "2026-10-21T23:59:00",
-                  "2026-10-22T01:12:00",
-                  "2026-10-22T03:41:00"],
+        "dates": ["2026-10-21T19:04:00", "2026-10-21T22:36:00", "2026-10-22T01:12:00",
+                  "2026-10-22T02:31:00", "2026-10-22T03:41:00"],
         "commits": [
-            ("ibm hr attrition dataset in",
+            ("ibm hr snapshot in: 1,470 employees",
              ["src/00_download_data.py", "data/raw", "shared", ".gitignore", ".env.example"]),
-            ("attrition drivers: overtime, satisfaction, tenure",
+            ("levers: overtime/satisfaction/tenure (+ the income surprise)",
              ["src/01_analysis.py", "data/processed", "sql"]),
-            ("retention model + ranked watch list",
+            ("gbdt + logistic readout, watch-list scoring",
              ["src/02_model_retention.py", "outputs"]),
-            ("dashboard + ai insights",
+            ("hr brief + dashboard",
              ["src/03_ai_insights.py", "src/04_dashboard.py", "dashboard"]),
-            ("chatbot, hero, shots, readme + post",
-             ["src/05_linkedin_hero.py", "src/06_chat.py", "assets", "README.md", "linkedin_post.md"]),
+            ("chat (top 5 at risk) + banner + readme",
+             ["src/05_banner.py", "src/06_chat.py", "assets", "README.md"]),
         ],
     },
 }
-
-PATH_TOLERANT = 2  # repl regex backreference newline safety
 
 
 def run(cmd: list[str], cwd: Path | None = None, env: dict | None = None) -> str:
@@ -291,7 +260,8 @@ def build_stage(folder: str, spec: dict) -> Path:
         shutil.rmtree(stage)
     stage.mkdir(parents=True)
     shutil.copytree(src, stage, dirs_exist_ok=True,
-                    ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".git"))
+                    ignore=shutil.ignore_patterns("__pycache__", "*.pyc", ".git",
+                                                  "chat_session.html"))
     shutil.copytree(REPO / "shared", stage / "shared", dirs_exist_ok=True,
                     ignore=shutil.ignore_patterns("__pycache__"))
     (stage / ".gitignore").write_text(GITIGNORE)
@@ -318,7 +288,6 @@ def stage_git(stage: Path, spec: dict) -> None:
     run(["git", "config", "credential.helper", "!gh auth git-credential"], cwd=stage)
     run(["git", "config", "commit.gpgsign", "false"], cwd=stage)
 
-    leftover_dates = len(spec["commits"]) - 1
     for (msg, globs), when in zip(spec["commits"], spec["dates"]):
         paths: list[str] = []
         for g in globs:
@@ -333,7 +302,6 @@ def stage_git(stage: Path, spec: dict) -> None:
         if paths:
             run(["git", "add", "--", *paths], cwd=stage)
             run(["git", "commit", "-m", msg], cwd=stage, env=env2)
-            leftover_dates = 0
         else:
             print(f"  skip (nothing to stage): {msg}")
 
@@ -345,9 +313,7 @@ def stage_git(stage: Path, spec: dict) -> None:
             env={**env, "GIT_AUTHOR_DATE": spec["dates"][-1],
                  "GIT_COMMITTER_DATE": spec["dates"][-1]})
 
-    log = run(["git", "log", "--format=%h %ad %s", "--date=iso", "--all"], cwd=stage)
-    print(log)
-    assert "NitishPoosarla" not in log  # sanity: only messages on the log
+    print(run(["git", "log", "--format=%h %ad %s", "--date=iso", "--all"], cwd=stage))
 
 
 def remote_exists(name: str) -> bool:

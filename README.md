@@ -9,12 +9,12 @@ checked twice.
 ## What's in each project
 
 - `src/` — numbered scripts. 00 downloads the public data, 01–02 analysis/model,
-  03–04 the writeup and dashboard, 05 the headline image, 06 the chatbot.
+  03–04 the brief and the dashboard, 05 the banner image, 06 the chatbot.
 - `dashboard/index.html` — opens by double click, has an export-PDF button,
   and shows the same numbers the README shows.
 - `outputs/` — kpis.json and the segment CSVs / charts the scripts produce.
 - `assets/` — screenshots taken from real runs (how: `tools/capture.py`).
-- `sql/` + `linkedin_post.md` — the query layer and the LinkedIn writeup.
+- `sql/` — the query layer (`analysis.sql` per project).
 
 ## Why every project has a chatbot (src/06_chat.py)
 

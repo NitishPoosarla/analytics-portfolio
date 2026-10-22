@@ -1,60 +1,61 @@
-# 03 · Supply Chain — Order-to-Delivery Intelligence
+# Retail supply chain: concentration, returns, and priced hedges
 
-> **Business question:** Where is the order pipeline leaking, and which SKUs and
-> markets concentrate fulfillment risk?
+![banner](assets/banner.png)
 
+**Data:** UCI Online Retail II (public, CC-BY), sheet *Year 2010-2011* — 541,910
+transactions, 19,960 orders, 4,372 customers, 13 active months. Downloaded and
+unzipped by `src/00_download_data.py`.
 
-![](assets/linkedin_hero.png)
+## The numbers that matter
 
-![](assets/dashboard.png)
+| read | value |
+|---|---|
+| top-20 SKUs share of revenue | **13.7%** (of ~3,900 SKUs) |
+| revenue in one market (UK) | **84%** |
+| revenue value returning as returns | **9.2%** (cancelled invoices 1.7% separate) |
+| average order value | **~$534** |
+| multi-country orders | 15.4% |
 
-*The interactive dashboard — single-file HTML, opens by double-click, PDF-export button included.*
+![Dashboard](assets/dashboard.png)
 
-![](assets/chatbot.png)
+## What I did with them
 
-*The ask-the-data chatbot (`src/06_chat.py`) — answers computed live from the data; a real session.*
-## One-screen result
+1. `src/01_analysis.py` — concentration curve, market split, order value bands,
+   monthly pipeline (the pre-holiday surge shows up like clockwork), invoice-level
+   rollback with counts reported for dropped rows.
+2. `src/02_risk_scenarios.py` — two hedges priced, not vibes:
+   - **A: dual-source the top-20 SKUs** → +6% landed cost (stated), against the
+     single-supplier outage exposure.
+   - **B: export push** into the top-5 non-UK markets at a 25% growth factor →
+     ~$123k incremental revenue (stated).
+3. `src/03_ai_insights.py` — narrated brief for a supply chain director, verified
+   metrics only.
+4. `src/04_dashboard.py` — `dashboard/index.html`, single file, PDF export.
 
-- **525k transactions, 25k+ orders, ~4,000 customers** (UCI Online Retail II, public).
-- **Top-20 SKUs ≈ [auto-recorded %] of revenue** (`outputs/kpis.json`) — a single
-  supplier outage on those SKUs is a material business event.
-- **UK concentration** dominates revenue; one-market exposure is a policy/currency risk.
-- **Returns/cancels ≈ 9% of revenue value re-entering the pipeline** — returns belong in
-  the same S&OP capacity plan as forward orders.
-- Costed hedges: dual-sourcing the top-20 SKUs (+6% landed cost, stated) and an export
-  push to the top-5 non-UK markets (25% growth factor, stated, → ~$123k revenue).
-- Monthly pipeline shows pre-holiday surges — the capacity calendar is predictable.
-
-## Method
-
-1. **Data:** UCI Online Retail II (public, CC-BY) — downloaded & unzipped in
-   `src/00_download_data.py`; sheet *Year 2010-2011*.
-2. **Cleaning:** invoice-cancellation prefixes (`C`), negative quantities flagged as
-   returns, order-level rollup from transaction level, zero/lost revenue dropped with counts reported.
-3. **Analysis:** SKU concentration curve, market split, order value bands, month
-   pipeline (`01_analysis.py`).
-4. **Risk model:** costed hedging scenarios with written assumptions (`02_risk_scenarios.py`).
-5. **AI narration:** verified-metrics-only LLM briefing for the supply chain director
-   (`03_ai_insights.py`).
-6. **Dashboard:** `dashboard/index.html`.
-
-## Chatbot (ask the data)
+## Ask it things
 
 ```bash
-.venv/bin/python src/06_chat.py                      # interactive REPL
-.venv/bin/python src/06_chat.py "<one of the questions below>"   # one-shot
+.venv/bin/python src/06_chat.py "sku concentration"
+.venv/bin/python src/06_chat.py                    # REPL
+.venv/bin/python src/06_chat.py "revenue by country"
 ```
 
-SKU concentration, returns, revenue by country, monthly seasonality, order/AOV stats, and the priced hedges (A: dual-sourcing cost, B: export push).\nReal session: **sku concentration** → top-20 SKUs = 14.2% of revenue with the single biggest line item called out; **scenario** → dual-sourcing hedge = 2,979/year against the outage exposure.
+Sample real answers: *sku concentration* → top-20 = 14.2% with the biggest single
+line item named; *scenario* → dual-sourcing hedge ≈ $2,979/yr per stated costs vs
+the outage exposure. The chat recomputes everything at question time, with or
+without an LLM key (`GROQ_API_KEY` → narration only; offline → same numbers,
+deterministic engine).
 
-**Every number is computed live from the project's data files at question time.** With `GROQ_API_KEY` in `.env` the LLM narrates those verified facts only (it is instructed never to compute or invent); no key → the deterministic offline engine answers with the same numbers. Nothing hallucinates either way.
+![Chatbot](assets/chatbot.png)
 
-## Limitations
-Historic UK retailer data (2009–2011): patterns are directional. No supplier-lead-time
-fields exist in this dataset — the hedge economics are demand-side only; a real rollout
-would join supplier master data.
+## Gaps worth stating
+
+2009–2011 data. No supplier-lead-time fields exist in this dataset, so hedge
+economics are demand-side only — a real rollout joins supplier master data first.
+Returns are counted by revenue value, not units.
 
 ## Reproduce
+
 ```bash
 python src/00_download_data.py && python src/01_analysis.py
 python src/02_risk_scenarios.py && python src/03_ai_insights.py && python src/04_dashboard.py

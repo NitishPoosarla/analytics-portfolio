@@ -1,53 +1,54 @@
-# 06 · Software — Engineering Delivery Analytics
+# Cycle time in a real issue tracker
 
-> **Business question:** What predicts open→close cycle time in engineering work —
-> and what should the triage process change?
+![banner](assets/banner.png)
 
+1,000 issues from the pandas-dev tracker via the public GitHub API, timestamps and
+labels intact, fetched once and stored (the fetch script records its own
+parameters).
 
-![](assets/linkedin_hero.png)
+## Four questions the tracker answers
 
-![](assets/dashboard.png)
+**Q: What's a "normal" issue turnaround?**
+A: Median open→close is **0.92 days**. The p90 is **10.9** days. The median lies;
+the tail is where delivery work actually disappears.
 
-*The interactive dashboard — single-file HTML, opens by double-click, PDF-export button included.*
+**Q: Does triage do anything?**
+A: Labeled issues resolve at a **9.7-day median open age** vs **15.6 days**
+unlabeled. Labeling-on-arrival is the cheapest flow fix on the board (correlational,
+directionally strong — see caveats).
 
-![](assets/chatbot.png)
+**Q: Does debate cost time?**
+A: More comments → slower close. Consensus-building is measurable, and it
+compounds with the interleave of review cycles.
 
-*The ask-the-data chatbot (`src/06_chat.py`) — answers computed live from the data; a real session.*
-## One-screen result
+**Q: What should an AI triage assistant beat?**
+A: These verified flow numbers — not vibes. That's the bar any "AI for triage"
+pilot has to clear, and it's the framing I use in the brief (`02_ai_triage_brief.py`).
 
-- **1,000 issues sampled** from pandas-dev/pandas via the public GitHub API (verified,
-  timestamped fetch in `src/00_download_data.py`).
-- **Median open→close cycle time** and **P90** recorded in `kpis.json` — the DORA-flavored
-  flow baseline.
-- **Triage pays**: labeled issues sit far shorter in the open backlog than unlabeled ones
-  (medians auto-recorded) — labeling-on-arrival is the cheapest flow fix.
-- **Chatter slows velocity**: more comments → longer resolution; consensus-building is
-  a measurable cost.
-- The baseline doubles as the **evaluation target for this portfolio's AI thesis**: an
-  LLM triage assistant should be measured against these verified flow stats, not vibes.
+![Dashboard](assets/dashboard.png)
 
-## Method
-
-1. **Data:** GitHub REST API (created-desc pagination, capped at what the API reliably
-   serves), labels, timestamps, comments stored raw → JSONL.
-2. **Feature engineering:** cycle days (naive-safe timezone handling), open age, comment
-   bands, label taxonomy.
-3. **Analysis:** distribution, label-vs-speed, chat-vs-velocity (`01_analysis.py`).
-4. **AI:** engineering-leadership brief narrated over verified metrics only
-   (`02_ai_triage_brief.py`).
-5. **Dashboard:** `dashboard/index.html`.
-
-## Chatbot (ask the data)
+## Reproduce
 
 ```bash
-.venv/bin/python src/06_chat.py                      # interactive REPL
-.venv/bin/python src/06_chat.py "<one of the questions below>"   # one-shot
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+.venv/bin/python src/00_download_data.py     # re-fetches; data/raw has the snapshot
+.venv/bin/python src/01_analysis.py          # kpis regenerate
+.venv/bin/python src/03_dashboard.py         # dashboard/index.html
+
+.venv/bin/python src/06_chat.py "cycle time" # median 0.92d vs p90 10.9d
+.venv/bin/python src/06_chat.py               # REPL
 ```
 
-Cycle-time stats, triage labels vs unlabeled, open backlog, comment-band/debate effects, slowest label categories, author classes.\nReal session: **cycle time** → median 0.92d vs p90 10.9d (the tail); **labels** → labeled issues decide at 9.7d median open age vs 15.6d unlabeled.
+The napkin math lives in `kpis.json`; the chat recomputes it live — cycle stats,
+labels-vs-speed, open backlog, comment bands, slowest label groups, author
+classes. An LLM key (`GROQ_API_KEY`) gets you narrated briefs of the same
+verified numbers; without one you get the same numbers.
 
-**Every number is computed live from the project's data files at question time.** With `GROQ_API_KEY` in `.env` the LLM narrates those verified facts only (it is instructed never to compute or invent); no key → the deterministic offline engine answers with the same numbers. Nothing hallucinates either way.
+![Chatbot](assets/chatbot.png)
 
-## Limitations
-One repo, time-windowed sample (recent 1k issues by creation date); unauthenticated API.
-Correlational (labeling ↔ speed) — treat as directionally strong, causally unproven.
+## What this doesn't prove
+
+One repo, one time-windowed sample, unauthenticated API. The labeling↔speed
+association is correlational: labeling may *mark* high-priority issues rather than
+speed them up. Treat as directional, verify with an experiment before you
+re-engineer the process.

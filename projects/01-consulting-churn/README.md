@@ -1,70 +1,78 @@
-# Telco Churn — Retention Decision (Consulting)
+# Telco Churn — a retention decision for 7,043 customers
 
-![LinkedIn hero](assets/linkedin_hero.png)
+![banner](assets/banner.png)
+
+One question drove this whole folder: **who should the retention budget go to, and
+does the program pay for itself?** IBM's public Telco dataset, 7,043 customers.
 
 ![Dashboard](assets/dashboard.png)
 
-*The interactive dashboard — single-file HTML, opens by double-click, PDF-export button included.*
+*The dashboard is a single HTML file — double-click it, export it to PDF.*
 
 ![Chatbot](assets/chatbot.png)
 
-*The ask-the-data chatbot (`src/06_chat.py`) — answers computed live from the data; a real session.*
-
-**Dataset:** IBM Telco Customer Churn — 7,043 customers, real public dataset
-(live source: `https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv`).
-
-## The decision
-> Which customers should we spend retention money on, and what's the program's ROI?
+*The chatbot in a real session — same terminal you get from `python src/06_chat.py`.*
 
 ## What I did
-1. **Cleaned and verified** the raw data (11 blank TotalCharges = new customers with tenure 0 → numeric).
-2. **Computed churn facts** — every number below is recomputed from `data/processed/telco_clean.csv`, then narrated.
-3. **Modeled prior churn risk** with an interpretable logistic regression (one-hot features, stratified 80/20 split, ROC AUC **0.84** on held-out test set).
-4. **Ranked every customer** by expected_value = p_churn × monthly charge → ranked save list (`outputs/risk_scores.csv`).
-5. **Priced the retention program** and narrated the decision with the AI narration layer.
 
-## Headline numbers (verified)
-- **26.5%** churn — 1,869 of 7,043 customers
-- **~$139.1k** monthly revenue at risk (MRR of churners); ~$2.86M lifetime value gone
-- **Month-to-month contract churn 42.7%** vs ~2.8% on two-year contracts — the smoking gun
-- Churners are brand-new: median tenure **10 months** vs 38 for stayers (acquisition-quality problem)
-- Model: AUC 0.84
+1. Cleaned the raw file (11 blank TotalCharges belong to month-0 customers — coerced,
+   logged).
+2. Recomputed every headline fact straight from `data/processed/telco_clean.csv`.
+3. Fit an interpretable logistic regression (one-hot, stratified 80/20, ROC AUC **0.84**
+   held out) and scored every customer.
+4. Ranked by expected value `p_churn × monthly charge` → `outputs/risk_scores.csv`.
+5. Priced the save program against written-down costs.
 
-## The priced program (stated assumptions, not facts)
-Contact the top-expectation-value customers: outreach cost **$50/customer**, **10%** save rate, budget **$10,000** → 200 contacts retains ~**$1,477/month** MRR, **$17.7k** retained over 12 months → **~1.77× 12-month ROI**. Change any assumption and rerun `02` to re-price.
+## Numbers I stand behind
 
-## How to run
+| fact | value |
+|---|---|
+| churn rate | **26.5%** (1,869 of 7,043) |
+| MRR at risk | **~$139.1k** |
+| contract effect | **42.7%** churn month-to-month vs ~2.8% two-year |
+| tenure of churners | median **10 months** (stayers: 38) |
+| model | AUC **0.84** |
+
+## The program math (assumptions, labeled as such)
+
+Outreach $50/customer, 10% save rate, $10,000 budget → 200 contacts → ~$1,477 MRR
+retained → **$17.7k over 12 months ≈ 1.77× ROI**. Every one of those four numbers is
+mine to change; the script is yours: rerun `02_model_roi.py` after editing them.
+
+## Run it
+
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
-.venv/bin/python src/00_download_data.py   # downloads the public dataset
+.venv/bin/python src/00_download_data.py   # fetches the public CSV
 .venv/bin/python src/01_prepare_analysis.py
-.venv/bin/python src/02_model_roi.py
-.venv/bin/python src/03_ai_insights.py     # add an LLM key in .env for real narration
-.venv/bin/python src/04_dashboard.py       # outputs dashboard/index.html — open it
+.venv/bin/python src/02_model_roi.py       # the priced program lives here
+.venv/bin/python src/03_ai_insights.py     # add a key in .env for LLM narration
+.venv/bin/python src/04_dashboard.py       # writes dashboard/index.html
+.venv/bin/python src/05_banner.py          # regenerates the banner above
 ```
 
-## Chatbot (ask the data)
+## Ask the data instead
+
 ```bash
-.venv/bin/python src/06_chat.py          # interactive REPL
-.venv/bin/python src/06_chat.py "churn by contract"   # one-shot
+.venv/bin/python src/06_chat.py                      # REPL
+.venv/bin/python src/06_chat.py "churn by contract"  # one-shot
 ```
-Answers contract/payment/internet churn, median tenure, top-5 save-list, and the ROI scenario — **every number computed live from the CSV**; with `GROQ_API_KEY` the LLM narrates verified facts only (offline engine otherwise).
 
-## The AI rule
-> **Python computes and verifies every number. AI explains, prioritizes and frames — it never invents a metric.**
+It answers contract/payment/service churn, tenure medians, the ranked save-list and
+the ROI scenario by re-reading the CSV at question time. Hand models a key
+(`GROQ_API_KEY` in `.env`) and it narrates those verified facts; keyless it falls back
+to the deterministic engine and the numbers don't move.
 
-With `GROQ_API_KEY` (or Gemini/OpenAI) in `.env`, 03 sends ONLY verified numbers to the LLM; without an internet connection/token it falls back to a deterministic offline narrative engine. Nothing breaks either way.
+## Where it falls short
 
-## Limitations (honest)
-- Public dataset → findings are **directional** on a real churn problem at one US telecom snapshot (2018); no seasonality, no causal identification.
-- ROI scenario costs are **written-down assumptions**, not measured — rerun with your own numbers.
-- Log-loss/calibration not tuned — segmentation and lift matter more here.
-- Individual features like TotalCharges are future-based in the raw form; scoring uses only the attached snapshot features.
+- One US telecom snapshot (2018). Directional, not causal; no seasonality.
+- The $50/$10%/200-contact economics are assumptions, not measurements.
+- Calibration wasn't tuned — for ranking, AUC + deciles do the work.
 
-## Files
-- `data/` raw + clean CSVs · `outputs/` kpis.json, model_eval.json, risk_scores.csv, seg_*.csv, insights.md, charts, linkedin_hero.png
-- `assets/` dashboard.png, chatbot.png, hero + chart renders (for this README & LinkedIn)
-- `sql/analysis.sql` SQLite/BigQuery SQL reproducing the headline metrics
-- `dashboard/index.html` self-contained interactive PDF-exportable dashboard
-- `src/` the pipeline (00 download → 01 analysis → 02 model → 03 AI → 04 dashboard → 05 hero → 06 chat → 07 screenshots) · `requirements.txt` · `.env.example`
+## Folder map
+
+`src/` 00 download · 01 prep+segments · 02 model+ROI · 03 AI brief · 04 dashboard ·
+05 banner · 06 chatbot — `data/` raw+clean — `outputs/` kpis, eval, risk_scores,
+segments, charts — `dashboard/index.html` — `sql/analysis.sql` — `assets/` this
+README's images — `requirements.txt`, `.env.example`.
